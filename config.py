@@ -1,0 +1,9 @@
+CHANNEL_ID = -1002627055863
+CHAT_ID = -1002069930785
+ACCESS_LIST = [5985160788, 1497799755]
+#               Xbox202      Sauro
+
+DATA_PATH = 'data/'
+DB = DATA_PATH + 'bot.db'
+
+OSU_MAP_PATH = 'data/map/'
