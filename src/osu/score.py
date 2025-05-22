@@ -13,7 +13,7 @@ async def main(message:types.Message, msgsplit:list, osu_api:osuapi.Osu):
     base_url:str = UrlSplit[2]
     if base_url == 'osu.ppy.sh' and UrlSplit[3] == 'scores':
         score_id:int = int(UrlSplit[4])
-        score_res:dict = osu_api.get_score(score_id).json()
+        score_res:dict = await osu_api.get_score(score_id)
         if score_res != {'error': "Specified Solo\\Score couldn't be found."} :
             tg_username = message.from_user.username
             tg_name = message.from_user.first_name
@@ -30,11 +30,18 @@ async def main(message:types.Message, msgsplit:list, osu_api:osuapi.Osu):
             elif ruleset_id == 3:
                 mode = 'fruits'
 
-            profile_res:dict = osu_api.profile(userid, mode, True).json()
-            beatmap_res:dict = osu_api.beatmap(beatmapid).json()
+            profile_res:dict = await osu_api.profile(userid, mode, True)
+            beatmap_res:dict = await osu_api.beatmap(beatmapid)
 
             text = await templates.main(mode, score_res, beatmap_res, profile_res)
-            text += '\n\n'
+            text += '\n'
+            if len(msgsplit) > 1:
+                comment = ' '.join(msgsplit[1:])
+                text += '\n'
+                text += '```Comment\n'
+                text += f'''{comment}\n'''
+                text += '```'
+            text += '\n'
             text += '#скоры\n'
             text += f'''👤 `{tg_name}({tg_username}, {tg_id})`'''
 
