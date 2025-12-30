@@ -24,11 +24,11 @@ async def main(message:types.Message, msgsplit:list, osu_api:osuapi.Osu):
             if ruleset_id == 0:
                 mode = 'osu'
             elif ruleset_id == 1:
-                mode = 'mania'
-            elif ruleset_id == 2:
                 mode = 'taiko'
-            elif ruleset_id == 3:
+            elif ruleset_id == 2:
                 mode = 'fruits'
+            elif ruleset_id == 3:
+                mode = 'mania'
 
             profile_res:dict = await osu_api.profile(userid, mode, True)
             beatmap_res:dict = await osu_api.beatmap(beatmapid)

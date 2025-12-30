@@ -14,7 +14,8 @@ async def main(call:types.CallbackQuery):
         messageid = calldata[2]
         if calldata[0] == 'osu_score_send':
             text = call.message.text
-            await bot.send_message(CHANNEL_ID, text, parse_mode='MARKDOWN', link_preview_options=call.message.link_preview_options)
+            entities = call.message.entities
+            await bot.send_message(CHANNEL_ID, text, link_preview_options=call.message.link_preview_options, entities=entities)
             await bot.delete_message(CHAT_ID, call.message.id)
             await bot.send_message(userid, 'Ваш скор был успешно одобрен✅', reply_to_message_id=messageid)
         elif calldata[0] == 'osu_score_reject':
